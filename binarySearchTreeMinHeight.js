@@ -37,6 +37,29 @@ class Binary_Tree {
    this.addToBST(currentNode,node);
   }
 
+  // converts BST 'data' values to [array]
+  cvtBST() {
+    var arr = [];
+    arr.push(this.root.data);
+
+    // get array - depth-first
+    this.cvtToArray(this.root.left, arr);
+    this.cvtToArray(this.root.right, arr);
+
+    return arr;
+  }
+
+  // Depth-First recursive Method - BST data to an [array]
+  cvtToArray(currNode, accumArr) {
+    var arr = accumArr || [];
+
+    if (!currNode) {return;}
+    arr.push(currNode.data);
+
+    this.cvtToArray(currNode.left, arr);
+    this.cvtToArray(currNode.right, arr);
+  }
+
   addToBST(currentNode, node) {
     if (!this.root) {
     //case when the first node is beign created
