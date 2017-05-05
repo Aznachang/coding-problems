@@ -2,7 +2,7 @@
 
 // naive solution - O(n^2)
 const intersectArrays = (a,b) => {
-  let len = Math.max(a.length, b.length);
+  let len = Math.min(a.length, b.length);
   let max, min;
   let result = [];
 
@@ -13,8 +13,9 @@ const intersectArrays = (a,b) => {
     max = b;
     min = a;
   }
-
+  // iterate through smaller array
   for (let i = 0; i < len; i++) {
+    // check if each [smaller] element found in [max]
     if (max.indexOf(min[i]) !== -1) {
       result.push(min[i]);
     }
