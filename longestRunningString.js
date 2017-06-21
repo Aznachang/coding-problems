@@ -12,29 +12,29 @@ const longestRun = str => {
     return null;
   }
 
-  let result = [0,0];
-  let curCount = 1;
-  let topCount = 1;
-  let curStartInd = 0;
+  let result = [0,0],
+      startInd = 0,
+      len = str.length,
+      topCount = 1,
+      count = 1; // consec.
 
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === str[i-1]) {
-      curCount++;
+  for (let i=0; i<len; i++) {
+    let left = str[i],
+        right = str[i+1];
 
-      if (curCount > topCount) {
-        result[0] = curStartInd;
-        result[1] = i;  // ending index
-        topCount = curCount;
-      }
+    if (left === right) {
+      count++;
+      // left !== right
     } else {
-      if (curCount > topCount) {
-        result[0] = curStartInd;
+      if (count > topCount) {
+        result[0] = startInd;
+        result[1] = i;
+        topCount = count;
+        count = 1; // revert to 1
       }
-
-      curCount = 1;
-      curStartInd = i;
-    }
-  }
+      startInd = i+1;
+    } // end of else
+  } // end of for-loop
 
   return result;
 };
