@@ -24,6 +24,17 @@ const intersectArrays = (a,b) => {
   return result;
 }
 
+// using built-in ES6 set()
+const intersectArray = (a,b) => {
+  // get non-duplicate values! -> {}
+  let setA = new Set(a);
+  let setB = new Set(b);
+  // see if {setA} set has any 'item' from {setB}
+  let intersect = [...setA].filter(item => setB.has(item));
+
+  return intersect;
+};
+
 // let a = [1,2,3,4,5];
 // let b = [2,4,7,11, 15, 1];
 // let result = intersectArrays(a,b);
