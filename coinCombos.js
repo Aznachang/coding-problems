@@ -10,14 +10,17 @@ const makeChange = (amount, index) => {
       // '2nd least amount' is reached
       // or amount < 5cents
   let calcChange = (amount, index) => {
+    let coinAmt = coins[index];
+    let len = (amount/coinAmt);
+
     if ((index >= coins.length-1) || (amount < secondLast)) {
       return ++counts;
     }
-    var coinAmt = coins[index];
-    var len = (amount/coinAmt);
+    // let coinAmt = coins[index];
+    // let len = (amount/coinAmt);
 
     for (let i=0; i<= len; i++) {
-      var remainingAmt = amount - i * cointAmt;
+      let remainingAmt = amount - i * cointAmt;
       calcChange(remainingAmt, index+1);
     }
   }
@@ -25,3 +28,5 @@ const makeChange = (amount, index) => {
   calcChange(amount,index);
   return counts;
 }
+
+console.log(calcChange(25, 0));

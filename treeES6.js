@@ -12,26 +12,34 @@ class Tree {
     this._root = node;
   }
 
-  traverseDF(callback) {
+  // for adding/removing a Node
+  traverseDF(callback, found) {
     // Recursion - IIFE
-    (function recurse(currentNode) {
-      for (let i = 0, length = currentNode.children.length; i < length; i++) {
-        recurse(currentNode.children[i]);
+    (function recurse(currNode) {
+      // check if parentNode was found yet
+      if (!found) {
+        // step 2
+        for (let i = 0, len = currNode.children.length; i < len; i++) {
+          let childNode = currNode.children[i];
+          // step 3
+          recurse(childNode);
+        }
+        // step 4
+        callback(currNode);
       }
-
-      callback(currentNode);
-
+      // step 1
     })(this._root);
   };
 
-  contains(callback, traversal) {
-    traversal.call(this, callback);
+  contains(callback, traversal, found) {
+    traversal.call(this, callback, found);
   };
 
   add(data, toData, traversal) {
     let child = new Node(data),
       parent = null,
       // apply callback to get full parentNode
+      //  if it exists
       callback = function(node) {
         if (node.data === toData) {
             parent = node;
