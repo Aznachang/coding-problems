@@ -12,7 +12,6 @@ class Tree {
     this._root = node;
   }
 
-  // for adding/removing a Node
   traverseDF(callback, found) {
     // Recursion - IIFE
     (function recurse(currNode) {
@@ -30,6 +29,41 @@ class Tree {
       // step 1
     })(this._root);
   };
+
+  filterDF(filter, node, depth, results) {
+    result = results || [];
+    depth = depth || 0;
+    node = node || this._root;
+
+    // base case - if filter cond. is met
+    if (filter(node, depth)) {
+      // push the value/data for this currNode
+      results.push(node.data);
+    }
+    // traverse thru tree's children (leftmost -> rightmost)
+    for (let i=0, len=node.children.length; i<len; i++) {
+      let childNode = node.children[i];
+      filterDF(filter, childNode, depth+1, results);
+    }
+
+    return results;
+  }
+
+  countLeaves(node, count) {
+    node = node || this._root;
+    count = count || 0;
+
+    // base case - currNode has no children
+    if (node.children.length === 0) {
+      count = 1;
+    } else {
+      count = 0;
+      for (let i=0, len=node.children.length; i<len; i++) {
+        let childNode = node.children[i];
+        count += this.countLeaves(childNode);
+      }
+    }
+  }
 
   contains(callback, traversal, found) {
     traversal.call(this, callback, found);
