@@ -20,7 +20,7 @@ const makeChange = (amount, index) => {
     // let len = (amount/coinAmt);
 
     for (let i=0; i<= len; i++) {
-      let remainingAmt = amount - i * cointAmt;
+      let remainingAmt = amount - i * coinAmt;
       calcChange(remainingAmt, index+1);
     }
   }

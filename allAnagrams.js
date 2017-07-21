@@ -1,24 +1,18 @@
-let allAnagrams = (string) => {
-  let result = [];
-  let len = string.length;
+const allAnagrams = (str, ana='', result=[]) => {
+  let len = str.length;
 
-  if (typeof string !== 'string') {
-      return null;
+  // base case
+  if (str.length===0) {
+    // push to result
+    result.push(ana);
+    return;
   }
-
-  // base case - ana (currCombo)
-  let anagram = (ana,str) => {
-      // base case
-      if (str === '') {
-          result.push(ana);
-          return;
-      }
-      // loop through string
-      for (let i=0, i<len; i++) {
-          anagram(ana+str[i], str.slice(0,i) + str.slice(i+1));
-      }
+  // iterate through given 'string'
+  for (let i=0; i<str.length; i++) {
+    allAnagrams(str.slice(0,i)+str.slice(i+1), ana+str[i], result);
   }
-  // invoke
-  anagram(string,'');
   return result;
 };
+
+let anagrams = allAnagrams('abc');
+console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
