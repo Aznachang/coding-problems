@@ -1,23 +1,17 @@
-const flatten = (arr, once) => {
-  let results = [];
+const flatten = (arr, once=false, result=[]) => {
+  let len = arr.length;
 
   if (once) {
-    // use spread operator
-    return [...arr];
+    return [].concat(...arr);
   }
 
-  const flatOnce = (arg) => {
-    // base case
-    if (!Array.isArray(arg)) {
-        results.push(arg);
-    } else {
-        // arg is array
-        arg.forEach((item) => {
-            flatOnce(item);
-        });
-    }
+  // base case
+  if (!Array.isArray(arr)) {
+    result.push(arr);
+    return;
   }
-
-  arr.forEach(flatOnce);
-  return results;
+  for (let i=0; i<arr.length; i++) {
+    flatten(arr[i], once, result);
+  }
+  return result;
 }
