@@ -11,6 +11,15 @@ class LinkedList {
     this.tail = null;
   }
 
+  addEachFromArray(arr) {
+    if (!Array.isArray(arr)) {return null;}
+
+    arr.forEach((item) => {
+      this.addToTail(item);
+    });
+    return this.head;
+  }
+
   addToTail(value) {
     let newNode = new Node(value);
 
@@ -22,6 +31,19 @@ class LinkedList {
     }
     this.tail = newNode;
   };
+
+  // check for a node value
+  contains(target) {
+    let currNode = this.head;
+
+    while (currNode) {
+      if (currNode.value === target) {
+        return true;
+      }
+      currNode = currNode.next;
+    }
+    return false;
+  }
 
   reverseLinkedList() {
     // a --> b --> c --> d
@@ -44,5 +66,24 @@ class LinkedList {
     }
     // prevNode will be the last Node
     return prevNode;
+  };
+
+  removeKthNode(k, i=1) {
+    let curr = this.head,
+        prev = this.head;
+
+    if (this.head === null) {
+      return null;
+    } else {
+      while (curr) {
+        if (i===k) {
+          prev  = curr.next;
+          curr.next = null;
+        }
+        prev = curr;
+        curr = curr.next;
+      }
+    }
+    return this.head;
   };
 }
