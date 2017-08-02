@@ -70,20 +70,25 @@ class LinkedList {
 
   removeKthNode(k, i=1) {
     let curr = this.head,
-        prev = this.head;
+        prev = null;
 
     if (this.head === null) {
       return null;
-    } else {
-      while (curr) {
-        if (i===k) {
-          prev  = curr.next;
-          curr.next = null;
-        }
-        prev = curr;
-        curr = curr.next;
-      }
     }
-    return this.head;
+    while (curr) {
+      if (i === k) {
+        // set prevNode pointer to Node after currNode!
+        prev.next = curr.next;
+        // set currNode pointer to noNode
+        curr.next = null;
+      }
+      // move prevNode to currNode
+      prev = curr;
+      // currNode is the nextNode
+      curr = curr.next;
+      i++;
+    }
+    // return Node you removed
+    return prev;
   };
 }
