@@ -1,32 +1,25 @@
 // Find the total number of coin combinations for a given amount
-const makeChange = (amount, index) => {
-  let coins = [25, 10, 5, 1];
-  let counts = 0;
-  let secondLast = coins[coins.length-2];
+const calcChange = (amount, index=0, counts=0) => {
+  const coins = [25, 10, 5, 2];
 
-  // Recurse through index levels
-    // index = 0-quarters; 1-dimes; 2-nickels; 3-pennies
-    // add one to counts if
-      // '2nd least amount' is reached
-      // or amount < 5cents
-  let calcChange = (amount, index) => {
-    let coinAmt = coins[index];
-    let len = (amount/coinAmt);
-
-    if ((index >= coins.length-1) || (amount < secondLast)) {
-      return ++counts;
-    }
-    // let coinAmt = coins[index];
-    // let len = (amount/coinAmt);
-
-    for (let i=0; i<= len; i++) {
-      let remainingAmt = amount - i * coinAmt;
-      calcChange(remainingAmt, index+1);
-    }
+  // base case ---------------
+  //add one to counts if index=3 (penny level) is reached
+  if (index === coins.length -1 && amount % coins[index]===0) {
+    return ++counts;
   }
+  let coinAmt = coins[index];
+  let maxNumCoins = (amount/coinAmt);
 
-  calcChange(amount,index);
+  for (let i=0; i<= maxNumCoins; i++) {
+    let remainingAmt = amount - i * coinAmt;
+    //console.log('coin: '+ coins[index] + ' x ' + i + ' remainingAmt: '+ remainingAmt);
+    counts = calcChange(remainingAmt, index+1, counts);
+    // without counts =... won't work as its value will be reset to zero when retrun to caller
+  }
   return counts;
 }
-
-console.log(calcChange(25, 0));
+console.log(calcChange(2));
+console.log(calcChange(5));
+console.log(calcChange(12));
+console.log(calcChange(15));
+console.log(calcChange(125));
