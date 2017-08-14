@@ -68,27 +68,33 @@ class LinkedList {
     return prevNode;
   };
 
-  removeKthNode(k, i=1) {
-    let curr = this.head,
-        prev = null;
-
-    if (this.head === null) {
-      return null;
-    }
-    while (curr) {
-      if (i === k) {
-        // set prevNode pointer to Node after currNode!
-        prev.next = curr.next;
-        // set currNode pointer to noNode
-        curr.next = null;
+   deleteKthFromEnd(k) {
+      let curr = this.head,
+          prev = null,
+          i = 1; // counter
+      if (k > this._size) {throw new Error('no change!');}
+      // head
+      if (k === this._size) {
+        let next = this.head.next;
+        this.head.next = null;
+        this.head = next;
+        this._size--;
       }
-      // move prevNode to currNode
-      prev = curr;
-      // currNode is the nextNode
-      curr = curr.next;
-      i++;
+      while (curr) {
+        if (i === this._size-k+1) {
+          prev.next = curr.next;
+          curr.next = null;
+          this._size--;
+          if (k===1) {
+            this.tail = prev;
+            break;
+          }
+          break;
+        }
+        // prevNode to currNode
+        prev = curr;
+        curr = curr.next;
+        i++;
+      }
     }
-    // return Node you removed
-    return prev;
-  };
 }
