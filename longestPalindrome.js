@@ -1,11 +1,13 @@
 const longestPalindrome = str => {
-  let result = '';
   let len = str.length;
+  
+  if (len === 0) { return ''; }
+  if (len === 1) { return str; }
+  if (len === 2) { 
+    return str[0] === str[1] ? str : str[0];
+  } 
 
-  if (len < 2) {return null;}
-  if (len === 2) {
-    return str[0] === str[1] ? str : null;
-  }
+  let result = str[0];
 
   let centerPal = (left, right) => {
     // expand left and right once each time
@@ -25,11 +27,11 @@ const longestPalindrome = str => {
     let evenPal = centerPal(i,i+1);
 
     if (oddPal.length > result.length && oddPal.length > 1) {
-        result = oddPal;
+      result = oddPal;
     }
 
     if (evenPal.length > result.length && evenPal.length > 1) {
-        result = evenPal;
+      result = evenPal;
     }
   }
   return `The longest palindrome is ${result} with a length of ${result.length}`;
