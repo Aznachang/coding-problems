@@ -7,9 +7,13 @@ const memoize = (func) => {
   };
 }
 
-const fibonacci = memoize( (n) => {
-  return (n === 0 || n === 1) ? n : fibonacci(n - 1) + fibonacci(n - 2);
-});
+const fibonacci = (n, store={1: 0, 2:1 }) => {
+  if (store[n] || n === 0) {
+    return store[n];
+  }
+
+  return store[n] = fibonacci(n-1, store) + fibonacci(n-2, store);
+};
 
 // console.log(fibonacci(5));
 // console.log(fibonacci(5));
