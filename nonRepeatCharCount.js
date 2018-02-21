@@ -11,6 +11,13 @@ const nonRepeat = str => {
   let maxCount = 0,
     count = 0,
     maxStr = '';
+  
+  // loop through 'str' to process each char and 
+  // create 'maxStr' by adding non-repeated char to it.
+  // if the next char is found to be same as ind-th char in 'maxStr', 
+  // the front portion of 'maxStr' is chopped off and 
+  // starts at its 'ind+1' char-index and 
+  // appended with the new repeated char (at the end)
 
   for (let i = 0; i < len; i++) {
     let curr = str[i];
