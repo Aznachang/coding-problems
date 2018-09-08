@@ -31,8 +31,9 @@ const balancedParens = input => {
     '[': ']',
     '(': ')',
   }
+  let len = input.length;
 
-  for (let i=0, len=input.length; i<len; i++) {
+  for (let i=0; i<len; i++) {
     var curr = input[i];
     if (pairs[curr]) {
       newStr.push();
